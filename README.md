@@ -1,6 +1,6 @@
 # Sanitize Database
 
-This script is used to sanitize user data after cloning the database into a non-production environment. Behind the scenes, it uses Drush's `sql-sanitize` function for Drupal sites, and a special query in WordPress (referenced originally by this [blog post](http://crackingdrupal.com/blog/greggles/creating-sanitized-drupal-database-dump#comment-164)).
+This script is used to sanitize user data after cloning the database into a non-production environment. Behind the scenes, it uses Drush's `sql-sanitize` function for Drupal sites, and a special query in WordPress (derived from this [blog post](https://web.archive.org/web/20200225053921/https://www.crackingdrupal.com/blog/greggles/creating-sanitized-drupal-database-dump#comment-164)).
 
 ### Installation
 
