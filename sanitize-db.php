@@ -7,20 +7,23 @@
 // Don't ever sanitize the database on the live environment. Doing so would
 // destroy the canonical version of the data.
 if (defined('PANTHEON_ENVIRONMENT') && (PANTHEON_ENVIRONMENT !== 'live')) {
-    // Switch between environments.
+    echo "Sanitizing the database...\n\n";
+
+    // Switch between frameworks.
     switch($_ENV['FRAMEWORK']) {
         case 'drupal':
-            // Import all config changes.
-            echo "Sanitizing the database...\n";
+        case 'drupal8':
             passthru('drush sql-sanitize -y');
-            echo "Database sanitization complete.\n";
             break;
         case 'wordpress':
-            // Bootstrap WordPress
-            require_once $_SERVER['DOCUMENT_ROOT'] . '/wp-load.php';
-            global $wpdb;
-            // Adapted from rom http://crackingdrupal.com/blog/greggles/creating-sanitized-drupal-database-dump#comment-164
-            $wpdb->query("UPDATE wp_users SET user_email = CONCAT(user_login, '@localhost'), user_pass = MD5(CONCAT('MILDSECRET', user_login)), user_activation_key = '';");
+        case 'wordpress_network':
+            $query = "UPDATE wp_users SET user_email = CONCAT(user_login, '@localhost'), user_pass = MD5(CONCAT('MILDSECRET', user_login)), user_activation_key = '';";
+            passthru("wp db query $query");
             break;
-    }    
+        default:
+            echo "No compatible framework found.";
+            break;
+    }
+
+    echo "Database sanitization complete.\n";
 }

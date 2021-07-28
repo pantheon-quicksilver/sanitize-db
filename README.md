@@ -1,15 +1,6 @@
-# Quicksilver Template
+# Sanitize Database
 
-This is template for new Quicksilver projects to utilize so that Quicksilver scripts can be installed through Composer.
-
-## Requirements
-
-While these scripts can be downloaded individually, they are meant to work with Composer. See the installation in the next section.
-
-- Quicksilver script projects and the script name itself should be consistent in naming convention.
-- README should include a recommendation for types of hooks and stages that the script should run on.
-  - For example, "This script should run on `clone_database` and the `after` stage.
-  - Provide a snippet that can be pasted into the `pantheon.yml` file.
+This script is used to sanitize user data after cloning the database into a non-production environment. Behind the scenes, it uses Drush's `sql-sanitize` function for Drupal sites, and a special query in WordPress (referenced originally by this [blog post](http://crackingdrupal.com/blog/greggles/creating-sanitized-drupal-database-dump#comment-164)).
 
 ### Installation
 
@@ -30,23 +21,19 @@ In order for this to work, you should have the following in your composer.json f
 }
 ```
 
-The project can be included by using the command, where `{quicksilver-project}` represents the name of the Quicksilver script:
+The project can be included by using the command:
 
-`composer require pantheon-quicksilver/{quicksilver-project}:^1`
-
-If you are using one of the example PR workflow projects ([Drupal 8](https://www.github.com/pantheon-systems/example-drops-8-composer), [Drupal 9](https://www.github.com/pantheon-systems/drupal-project), [WordPress](https://www.github.com/pantheon-systems/example-wordpress-composer)) as a starting point for your site, these entries should already be present in your `composer.json`.
+`composer require pantheon-quicksilver/sanitize-db`
 
 ### Example `pantheon.yml`
-
-Here's an example of what your `pantheon.yml` would look like if this were the only Quicksilver operation you wanted to use.
 
 ```yaml
 api_version: 1
 
 workflows:
-  sync_code:
+  clone_database:
     after:
       - type: webphp
-        description: Run Quicksilver script
-        script: private/scripts/quicksilver/pantheon-quicksilver/quicksilver-template.php
+        description: Sanitize database
+        script: private/scripts/quicksilver/pantheon-quicksilver/sanitize-db.php
 ```
