@@ -1,13 +1,14 @@
 {
   "name": "pantheon-quicksilver/sanitize-db",
   "description": "Sanitize user data after cloning a database to non-production environments.",
-  "type": "quicksilver-script",
+  "homepage": "https://github.com/pantheon-quicksilver/sanitize-db",
   "authors": [
     {
       "name": "Kyle Taylor",
       "email": "kyle.taylor@pantheon.io"
     }
   ],
+  "type": "quicksilver-script",
   "require": {
     "composer/installers": "~1.0"
   },
