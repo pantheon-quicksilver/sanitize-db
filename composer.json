@@ -8,7 +8,7 @@
       "email": "kyle.taylor@pantheon.io"
     }
   ],
-  "type": "quicksilver-script",
+  "type": "pantheon-quicksilver-script",
   "require": {
     "composer/installers": "^1 || ^2"
   },
